@@ -1,14 +1,18 @@
 var userListData = [];
-var singleContent = "";
+var singleContent = [];
 
 var soundfiles = [];
 $(document).ready(function(){
+    console.log("global.js loaded");
+    console.log('div val: ' + $('div#ssnDiv').text());
+    getfiles($('div#ssnDiv').text());
     populateTable();
 });
 
 function populateTable() {
     var tableContent = "";
-    $.getJSON('/users/userlist', function(data){
+    console.log('populateTable in global.js called');
+    $.getJSON('/userlist', function(data){
             userListData = data; //dont for large datasets
             $.each(data, function () {
                 tableContent += '<tr>';
@@ -22,20 +26,52 @@ function populateTable() {
         $('#userList table tbody').html(tableContent);
         $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
         $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
-        $('#addUserBtn').on('click' , addUser);
+        $('#addUserBtn').on('click' , goToLogin);
         $('#modifyUserBtn').on('click' , modifyUser);
-        $('#searchBtn').on('click' , getfiles);
+        //$('#searchBtn').on('click' , getfiles);
     });
 }
+function goToLogin() {
+    console.log('get login to be called now');
+    $.get('/login');
+}
 
-function getfiles(){
+function getfiles(ssnParsed){
     event.preventDefault();
-    console.log("getting files from: " + 'users/single'+ $('#search').val());
-    var ssn = $('input#search').val();
 
-    $.getJSON('/users/single' + ssn, function(data){
-        singleContent = data;
-    });
+    if(ssnParsed.length === 10 && isNaN(ssnParsed) !== true){
+        console.log("getting files from: " + 'users/single'+ $('#search').val());
+        var ssn = ssnParsed;
+
+        $.getJSON('/single' + ssn, function(data){
+            singleContent = data;
+
+        }).done(function () {
+
+            if(singleContent !== undefined) {
+                $('#userssn').text(singleContent[0].ssn);
+                $.each(singleContent[0].soundfiles, function (index, value) {
+                    var table = document.getElementById('userInfoTable');
+                    var row = table.insertRow(1);
+
+                    var link = document.createElement('a');
+                    link.textContent = '1/1/2017 - placeholder';
+                    link.setAttribute('href', "http://" + value);
+
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.appendChild(link);
+                    cell2.innerHTML = "here is a place";
+                });
+                $('#pathlist').html(makeUL(singleContent[0].soundfiles));
+            }else{
+                console.log("populate table json get failed (getFiles)");
+            }
+        });
+    }else{
+        console.log('Your ssn does not seem to be 10 digit long, please log in again.');
+
+    }
 
 }
 
@@ -51,7 +87,6 @@ function showUserInfo(){
     $('#userssn').text(thisUserObject.ssn);
     $('#useremail').text(thisUserObject.email);
     console.log(makeUL(soundfiles));
-    $('#pathlist').html(makeUL(soundfiles));
 }
 function addUser(){
     event.preventDefault();
@@ -72,7 +107,7 @@ function addUser(){
         $.ajax({
             type: 'POST',
             data: newUser,
-            url: 'users/adduser',
+            url: '/adduser',
             dataType: 'JSON'
         }).done(function (response) {
             if (response.msg === '') {
@@ -96,7 +131,7 @@ function deleteUser(){
     if(confirmation === true){
         $.ajax({
                 type: 'DELETE',
-                url: '/users/deleteuser' + $(this).attr('rel')
+                url: 'deleteuser' + $(this).attr('rel')
             }).done(function (response) {
                 if(response === ''){
                     console.log('table populated');
@@ -150,9 +185,11 @@ function makeUL(array) {
     for(var i = 0; i < array.length; i++) {
         // Create the list item:
         var item = document.createElement('li');
-
+        var link = document.createElement('a');
+        link.textContent = singleContent[0].ssn.toString();
+        link.setAttribute('href', "http://" + array[i]);
         // Set its contents:
-        item.appendChild(document.createTextNode(array[i]));
+        item.appendChild(link);
 
         // Add it to the list:
         list.appendChild(item);

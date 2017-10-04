@@ -1,10 +1,11 @@
 body {
-  padding: 30px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 30px;
+    background-color: rgba(121, 138, 153, 0.56);
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 h2 {
-  margin:0 0 .5em 0;
+    margin:0 0 .5em 0;
 }
 
 h3 {
@@ -13,12 +14,18 @@ h3 {
 }
 
 a {
-  color: #00B7FF;
+  color: #337aff;
+}
+#header{
+    background-color: #dffcff;
+    width: fit-content;
+    margin: auto;
 }
 
 #wrapper {
-  padding-left:600px;
-  position:relative;
+    padding-left:600px;
+    position:relative;
+    background-color: #adbfb6;
 }
 
 #userList {
@@ -67,4 +74,40 @@ a {
 fieldset {
   border:0;
   padding:0; margin:0;
+}
+
+
+/*New stuff*/
+
+#searchConsultationContainer{
+    width: 400px;
+}
+
+#loginForm{
+    width: 326px;
+    margin: auto;
+    margin-top: 20%;
+    padding: 16px;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 5px;
+    background: steelblue;
+}
+
+.form-control{
+    margin-bottom: 10px;
+}
+
+.btn-success{
+    margin-left:75%;
+}
+
+thead#tableHead {
+    background: #4782b3;
+}
+tbody#tableBody{
+    background: #FFB4A3;
+}
+.table-hover > tbody > tr:hover {
+    background-color: rgba(67, 67, 67, 0.38);
 }

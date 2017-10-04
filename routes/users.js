@@ -16,11 +16,9 @@ router.get('/userlist', function(req, res) {
 
 router.get('/single:id',  function (req, res) {
    var db = req.db;
-   console.log(req);
    var collection = db.get('usercollection');
    var query = {ssn : '8219181443'};
    collection.find(query, function (err, result) {
-       console.log(result);
        res.json(result);
    })
 });
@@ -69,6 +67,10 @@ router.post('/modifyuser:id', function(req, res){
         }
     });
 
+});
+
+router.post('/login', function (req,res) {
+   console.log('this call was from users.js');
 });
 
 module.exports = router;
