@@ -9,7 +9,7 @@ var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('localhost:27017/recorderdatabase');
 
-var index = require('./routes/index');
+var index = require('./routes/routes');
 //var users = require('./routes/users');
 var app = express();
 

@@ -1,0 +1,111 @@
+#bodyIndex {
+    background: url('/images/girlListening.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+}
+h3{
+    text-align: center;
+}
+.span3{
+    min-width: 268px;
+}
+
+thead th {
+    background-color: #006DCC;
+    color: white;
+    text-align: center;
+    width: fit-content;
+}
+
+tbody td {
+    background-color: #EEEEEE;
+    width: fit-content;
+    text-align: center;
+}
+
+tr td:first-child,
+tr th:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+tr td:last-child,
+tr th:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.form-control{
+    margin-left: 2px;
+}
+
+.table-hover > tbody > tr:hover {
+    background-color: rgba(51, 122, 255, 0.95);
+}
+#i.fa.fa-download{
+    margin-left: auto;
+    margin-right: auto;
+}
+button#btnID{
+     background: white;
+     border-width: thin;
+ }
+
+#searchConsultationContainer{
+    width: fit-content;
+    margin-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.container{
+    padding:0px;
+    margin-left: 0px;
+    width: fit-content;
+}
+#outerApp{
+    background: white;
+    width: fit-content;
+    margin-top: 1%;
+    margin-bottom: 3%;
+    margin-right: auto;
+    margin-left: auto;
+    height: 80%;
+    border-style: solid;
+    border-width: thin;
+    border-color: #006dcc;
+    border-radius: 19px;
+    box-shadow: 0 0 7px #9E9E9E;
+}
+div.welcomeHeader{
+    text-align: center;
+    margin-top: 27px;
+    margin-bottom: 27px;
+
+}
+#innerApp{
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 10px;
+    /* margin: 26px; */
+    display: table;
+
+}
+.btn-primary{
+    margin-left: -42px;
+}
+#titleAndLogout{
+    vertical-align: middle;
+    margin-top: 27px;
+    margin-bottom: 27px;
+}
+#logoutBtn{
+    margin-right: 0px;
+}
+

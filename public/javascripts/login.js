@@ -6,7 +6,7 @@ $(document).ready(function(){
 
 
 function listeners() {
-    $('#usernameSubmit').on('click' , readVal);
+    $('#logOutBtn').on('click' , readVal);
 
 }
 

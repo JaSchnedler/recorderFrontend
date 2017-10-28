@@ -4,75 +4,97 @@ var singleContent = [];
 var soundfiles = [];
 $(document).ready(function(){
     console.log("global.js loaded");
-    console.log('div val: ' + $('div#ssnDiv').text());
-    getfiles($('div#ssnDiv').text());
-    populateTable();
+    parsedSSN = '1710911211'; //stub to make life easy
+    if(parsedSSN !== undefined){
+        getfiles(parsedSSN);
+    }else{console.log('error...');}
+    //console.log(singleContent);
 });
 
-function populateTable() {
-    var tableContent = "";
-    console.log('populateTable in global.js called');
-    $.getJSON('/userlist', function(data){
-            userListData = data; //dont for large datasets
-            $.each(data, function () {
-                tableContent += '<tr>';
-                tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.ssn + '">' + this.ssn + '</a></td>';
-                //tableContent += '<td>' + this.soundfiles[0] + '</td>';
-                tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
-                tableContent += '</tr>';
-
-            });
-
-        $('#userList table tbody').html(tableContent);
-        $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
-        $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
-        $('#addUserBtn').on('click' , goToLogin);
-        $('#modifyUserBtn').on('click' , modifyUser);
-        //$('#searchBtn').on('click' , getfiles);
-    });
+function downloadFile(index){
+    console.log("downloading file number: " + index + ' belonging to ' + singleContent[0].ssn);
+    window.location.assign('https://' + singleContent[0].soundfiles[index]);
 }
+
 function goToLogin() {
     console.log('get login to be called now');
     $.get('/login');
+}
+
+function search(searchVal){
+    console.log('search called');
+    var matchArray = [];
+
+    $.each(singleContent[0].soundfiles, function (index, value) {
+
+        //line of thought: if the string matches:
+        // the date --> add the file to the array
+        // the location --> add the file to the array
+        //stub for impl purposes:
+        var evalVal = Math.random();
+        if(evalVal < 0.5){
+            matchArray.push(value);
+        }
+    });
+    populateTable(matchArray, true);
+
 }
 
 function getfiles(ssnParsed){
     event.preventDefault();
 
     if(ssnParsed.length === 10 && isNaN(ssnParsed) !== true){
-        console.log("getting files from: " + 'users/single'+ $('#search').val());
-        var ssn = ssnParsed;
+        console.log("getting files from: " + 'users/single'+ ssnParsed);
 
-        $.getJSON('/single' + ssn, function(data){
+        $.getJSON('/single' + ssnParsed, function(data){
             singleContent = data;
 
         }).done(function () {
+            populateTable(singleContent[0].soundfiles, false);
 
-            if(singleContent !== undefined) {
-                $('#userssn').text(singleContent[0].ssn);
-                $.each(singleContent[0].soundfiles, function (index, value) {
-                    var table = document.getElementById('userInfoTable');
-                    var row = table.insertRow(1);
-
-                    var link = document.createElement('a');
-                    link.textContent = '1/1/2017 - placeholder';
-                    link.setAttribute('href', "http://" + value);
-
-                    var cell1 = row.insertCell(0);
-                    var cell2 = row.insertCell(1);
-                    cell1.appendChild(link);
-                    cell2.innerHTML = "here is a place";
-                });
-                $('#pathlist').html(makeUL(singleContent[0].soundfiles));
-            }else{
-                console.log("populate table json get failed (getFiles)");
-            }
         });
     }else{
         console.log('Your ssn does not seem to be 10 digit long, please log in again.');
 
     }
 
+}
+function populateTable(userdata, isPopulated){
+    if(userdata !== undefined) {
+        if(isPopulated){
+
+            var table = document.getElementById('userInfoTable');
+            while(table.rows[2]) table.deleteRow(2);
+        }
+        $.each(userdata, function (index, value) {
+            console.log('creating row');
+            var table = document.getElementById('userInfoTable');
+            var row = table.insertRow(1);
+            var link = document.createElement('a');
+            link.textContent = '1/1/2017 - placeholder';
+            link.setAttribute('href', "http://" + value);
+
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            var cell5 = row.insertCell(4);
+            var cell6 = row.insertCell(5);
+
+            cell1.appendChild(link);
+            cell2.innerHTML = "Doctor John";
+            cell5.innerHTML = '<button id="DL'+index+'" onclick="javascript:downloadFile('+index+')"><i class="fa fa-download" aria-hidden="true"></i></button>';
+            cell3.innerHTML = "Skejby";
+            cell4.innerHTML = "Long time";
+            cell6.innerHTML = "Delete?";
+
+        });
+        //$('#pathlist').html(makeUL(userdata));
+        //console.log("singlecontent after populate:");
+        //console.log(userdata);
+    }else{
+        console.log("populate table json get failed (getFiles)");
+    }
 }
 
 function showUserInfo(){

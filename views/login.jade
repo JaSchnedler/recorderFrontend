@@ -3,17 +3,20 @@ html
     head
         link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous")
         link(rel='stylesheet', href='/stylesheets/style.css')
-        title Express authentication example
+        title weRecord
 
 
-    body
+    body(id='bodyLogin')
         block content
             body
-                form(id='loginForm', action='/', method='post')
-                    h2 #{title}
-                    input(class='form-control', name='name', placeholder='Username')
-                    input(class='form-control', name='password', placeholder='Password')
-                    button(class='btn btn-success', type = submit, id='usernameSubmit') Log In
+                div(id='loginContainer')
+                    form(id='loginForm', action='/app', method='post')
+                        h2(id='loginh2') #{title}
+                        h6 Please log in using your Social security number and the password sent to your e-boks.
+                        input(class='form-control', name='name', placeholder='Username')
+                        input(class='form-control', name='password', placeholder='Password')
+                        button(class='btn btn-primary', type = 'submit', id='usernameSubmit') Log In
+                        a(id='supportLink',href='') Need help?
 
 
         script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')

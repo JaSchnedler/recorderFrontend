@@ -1,16 +1,35 @@
-body {
-    padding: 30px;
-    background-color: rgba(121, 138, 153, 0.56);
+
+#bodyLogin {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background: url('/images/ladyListening.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+body{
+
+
 }
 
-h2 {
-    margin:0 0 .5em 0;
+#loginh2 {
+    text-align: center;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom-width: thin;
+    border-bottom-color: #CCCCCC;
+    border-bottom-style: solid;
 }
 
 h3 {
     margin:0 0 .5em 0;
     padding: -300px;
+}
+h6 {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    color: #323232;
+    padding: 4px;
+    margin-left: auto;
 }
 
 a {
@@ -28,86 +47,45 @@ a {
     background-color: #adbfb6;
 }
 
-#userList {
-  margin:0 0 30px 0;
+.span3{
+    display: inline-block;
 }
-#userList table {
-  border-collapse:separate;
-  border-spacing:1px;
-  background:#CCC;
-}
-#userList table th {
-  background:#EEE;
-  font-weight:600;
-  padding:10px 20px;
-  text-align:center;
-}
-#userList table tbody {
-  padding:0; margin:0;
-  border-collapse:collapse;
-  border-spacing:0px;
-}
-#userList table td {
-  background:#FFF;
-  padding:5px 10px;
-  text-align:center;
-}
-
-#userInfo {
-  width:fit-content;
-  position:absolute;
-  top:0; left:0;
-}
-#userInfo p {
-  padding:15px;
-  border:1px solid #CCC;
-  background:rgba(80,120,255,0.05);
-}
-
-
-#addUser{
-    position: relative;
-    margin-top: -50px;
-    margin-left: -600px;
-    width: fit-content;
-}
-fieldset {
-  border:0;
-  padding:0; margin:0;
-}
-
 
 /*New stuff*/
 
-#searchConsultationContainer{
-    width: 400px;
-}
 
+
+/* For login screen*/
 #loginForm{
-    width: 326px;
+    width: fit-content;
     margin: auto;
-    margin-top: 20%;
-    padding: 16px;
+    padding: 45px;
     border-style: solid;
     border-width: thin;
-    border-radius: 5px;
-    background: steelblue;
+    border-color: #006dcc;
+    border-radius: 19px;
+    box-shadow: 0 0 7px #9E9E9E;
+    background: white;
+}
+
+.btn-primary{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    width:-webkit-fill-available;
+}
+
+#loginContainer{
+    margin-top: 10%;
+}
+#supportLink{
+    color: #434343;
+    margin: auto;
 }
 
 .form-control{
-    margin-bottom: 10px;
+    margin-top: 7px;
+    background: rgba(211, 211, 211, 0.25);
+
 }
 
-.btn-success{
-    margin-left:75%;
-}
 
-thead#tableHead {
-    background: #4782b3;
-}
-tbody#tableBody{
-    background: #FFB4A3;
-}
-.table-hover > tbody > tr:hover {
-    background-color: rgba(67, 67, 67, 0.38);
-}
