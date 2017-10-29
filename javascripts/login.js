@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-    console.log('login.js loaded');
+    console.log('loginmodel.js loaded');
     //listeners();
 });
 
