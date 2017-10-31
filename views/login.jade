@@ -2,7 +2,9 @@ doctype html
 html
     head
         link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous")
-        link(rel='stylesheet', href='stylesheets/style.css')
+        link(rel='stylesheet', href='stylesheets/loginpagestyle.css')
+        link(rel="icon" type="image/png" sizes="16x16" href="../images/favicon/favicon-16x16.png")
+
         title weRecord
 
 
@@ -16,11 +18,22 @@ html
                         input(class='form-control', name='username', placeholder='Username')
                         input(class='form-control' type='password', name='password', placeholder='Password')
                         button(class='btn btn-primary', type = 'submit', id='usernameSubmit') Log In
-                        a(id='supportLink',href='') Need help?
-
+                        a(id='supportLink' class='btnsupport' data-toggle='modal' href='#helpModal') Need help?
+                            div(class="modal fade" id='helpModal' role="dialog")
+                                div(class="modal-dialog")
+                                    div(class="modal-content")
+                                        div(class="modal-header")
+                                            h4(class="modal-title") Help
+                                            button(type="button" class="close" data-dismiss="modal") &times;
+                                        div(class="modal-body")
+                                            p Username: Your username is your social security number including the last four digits.
+                                            p Password: Your password can be found in your E-boks, or can be reset with an email to jaschnedler@gmail.com
 
         script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
-        script(src='/javascripts/login.js')
+        script(src='/javascripts/clientloginview.js')
+        script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous")
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous")
 
 
 

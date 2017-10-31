@@ -1,0 +1,108 @@
+
+#bodyLogin {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background: url('/images/ladyListening.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+body{
+
+
+}
+
+#loginh2 {
+    text-align: center;
+    margin-bottom: 12px;
+    padding-bottom: 22px;
+    border-bottom-width: thin;
+    border-bottom-color: #CCCCCC;
+    border-bottom-style: solid;
+}
+
+h3 {
+    margin:0 0 .5em 0;
+    padding: -300px;
+}
+h6 {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    color: #323232;
+    padding: 4px;
+    margin-left: auto;
+}
+
+a {
+  color: #337aff;
+}
+#header{
+    background-color: #dffcff;
+    width: fit-content;
+    margin: auto;
+}
+
+#wrapper {
+    padding-left:600px;
+    position:relative;
+    background-color: #adbfb6;
+}
+
+.span3{
+    display: inline-block;
+}
+
+/*New stuff*/
+
+
+
+/* For login screen*/
+#loginForm{
+    width: fit-content;
+    margin: auto;
+    padding: 45px;
+    border-style: solid;
+    border-width: thin;
+    border-color: #006dcc;
+    border-radius: 40px;
+    box-shadow: 0 0 7px #9E9E9E;
+    background: white;
+}
+
+.btn-primary{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    width:-webkit-fill-available;
+    cursor: pointer;
+}
+
+#loginContainer{
+    margin-top: 10%;
+}
+#supportLink{
+    color: #337aff;
+    margin: auto;
+    text-decoration: underline;
+}
+#supportLink:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.form-control{
+    margin-top: 7px;
+    background: rgba(211, 211, 211, 0.25);
+
+}
+
+
+/* PopUp Styling*/
+
+.modal{
+    top: 20%;
+}
+
+.modal-header{
+    background: #006DCC;
+    color: white;
+
+}

@@ -31,3 +31,29 @@ exports.deleteFileByObjectID = function (objID, req) {
     });
 
 };
+
+/*Audio request handler
+* This function needs to be updated when data storage is added behind the node server.
+* For now it returns a static audio file of roughly the size produced by a consultation
+* Notes about future implementation:
+* pass an object id from client side, based on that determine path return that file.
+* */
+
+exports.retrieveFile = function (objID, req, res) {
+    /*
+    *   var db = req.db;
+        var collection = db.get('filecollection');
+        var query = {_id : objID};
+        collection.findOne(query, function (err, result) {
+        if(err){
+            console.log(err);
+        }else{
+            res.sendFile(result.fileurl);
+        }
+
+    });
+    *
+    *
+    * */
+    res.sendFile('/audiofiles/file1.wav');
+}
