@@ -1,19 +1,25 @@
+var Grid = require('gridfs-stream');
+var mongo = require('mongodb');
+var assert = require("assert");
+var fs = require("fs");
+
 exports.getUserInfo = function (req, res) {
     var db = req.db;
-    var collection = db.get('usercollection');
+    var collection = db.collection('usercollection');
     var query = {ssn : req.params.id};
-    collection.find(query, function (err, result) {
+    collection.find(query).toArray( function (err, result) {
         res.json(result);
     });
 };
 
 exports.getOwnedSoundFiles = function (owner, req, res) {
       var db = req.db;
-      var collection = db.get('filecollection');
+      var collection = db.collection('filecollection');
       var query = {owner : owner};
-      collection.find(query, function (err, result) {
-         res.json(result);
-         //console.log(result);
+      collection.find(query).toArray( function (err, result) {
+          if(err) throw err;
+          res.json(result);
+          //console.log(result);
       });
 };
 
@@ -32,28 +38,22 @@ exports.deleteFileByObjectID = function (objID, req) {
 
 };
 
-/*Audio request handler
-* This function needs to be updated when data storage is added behind the node server.
-* For now it returns a static audio file of roughly the size produced by a consultation
-* Notes about future implementation:
-* pass an object id from client side, based on that determine path return that file.
-* */
+/*Audio request handler*/
 
 exports.retrieveFile = function (objID, req, res) {
-    /*
-    *   var db = req.db;
-        var collection = db.get('filecollection');
-        var query = {_id : objID};
-        collection.findOne(query, function (err, result) {
-        if(err){
-            console.log(err);
-        }else{
-            res.sendFile(result.fileurl);
-        }
-
+    console.log('retrievefile');
+    var db = req.db;
+    var filid = new ObjectId('59fb257fa61ce9dca62fc66f');
+    var bucket = new mongo.GridFSBucket(db);
+    console.log('objID: ');
+    console.log(objID);
+    bucket.openDownloadStream(objID).
+    pipe(fs.createWriteStream('./output.wav')).
+    on('error', function(error) {
+        assert.ifError(error);
+    }).
+    on('finish', function() {
+        console.log('done!');
+        process.exit(0);
     });
-    *
-    *
-    * */
-    res.sendFile('/audiofiles/file1.wav');
-}
+};

@@ -1,11 +1,13 @@
 var express = require('express');
+var mongo = require('mongodb');
 var router = express.Router();
 var listmodel = require('../models/listmodel');
 var loginmodel = require('../models/loginmodel');
-
+var receivefromrecorderModel = require('../models/receivefromrecordermodel');
+var fs = require("fs");
 
 router.post('/app', function(req, res) {
-    loginmodel.verifyUser(req.body.username, req.body.password, req, function (response, name) {
+    loginmodel.verifyUser(req.body.username, req.body.password, req, function (response, name, err) {
         if(response) {
             res.render('index.jade', {title: 'Welcome ' + name + '!', ssn: req.body.username});
         }else{
@@ -16,6 +18,7 @@ router.post('/app', function(req, res) {
 
 router.get('/', function (req, res) {
     console.log("get login");
+    //console.log(req.db);
     res.render('login', { title: 'Welcome to weRecord'});
 });
 
@@ -64,10 +67,33 @@ router.post('/modifyuser:id', function(req){
 
 });
 
-
-
-router.get('/audiofile', function (req, res) {
-
+router.post('/user',function (req, res) {
+    receivefromrecorderModel.addUser(req);
 });
+
+router.post('/addfile', function (req, res) {
+    receivefromrecorderModel.getFile(req, res);
+    res.status(200).redirect('/');
+});
+
+router.get('/getaudio',function (req, res) {
+        var db = req.db;
+        var collection = db.collection('fs.files');
+        collection.findOne({filename: 'file1.wav'}, function (err, result) {
+            console.log('found it');
+            if(err) {
+                console.log(err.message);
+            }else{
+                var bucket = new mongo.GridFSBucket(db); //default bucket = fs
+                bucket.openDownloadStreamByName('file1.wav').pipe(fs.createWriteStream('./audiofiles/temp.wav')).on('error', function (error) {
+                    console.log('error');
+                }).on('finish', function () {
+                    console.log('success!');
+                })
+            }
+
+        });
+});
+
 
 module.exports = router;

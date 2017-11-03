@@ -13,7 +13,8 @@ function downloadFile(url){
 
 function goToLogin() {
     console.log('get login to be called now');
-    $.get('/login');
+    //$.get('/login');
+    $.post('/addfile');
 }
 
 function search(searchval){
@@ -37,16 +38,16 @@ function search(searchval){
 
 function getfiles(ssnParsed){
     event.preventDefault();
-    var userdata;
+    var audiofiles;
     if(ssnParsed.length === 10 && isNaN(ssnParsed) !== true){
 
         $.getJSON('/single' + ssnParsed, function(data){
-             userdata = data;
+             audiofiles = data;
         }).done(function () {
-            if(userdata === undefined){
+            if(audiofiles === undefined){
                 console.log('no data available');
             }else {
-                populateTable(userdata, false);
+                populateTable(audiofiles, false);
             }
         });
     }else{
@@ -54,18 +55,18 @@ function getfiles(ssnParsed){
     }
 }
 
-function populateTable(userdata, isPopulated){
-    if(userdata !== undefined) {
+function populateTable(audioData, isPopulated){
+    if(audioData !== undefined) {
         if(isPopulated){
 
             var table = document.getElementById('userInfoTable');
             while(table.rows[2]) table.deleteRow(2);
         }
-        $.each(userdata, function (index, value) {
+        $.each(audioData, function (index, value) {
             var table = document.getElementById('userInfoTable');
             var row = table.insertRow(1);
             var link = document.createElement('a');
-            link.textContent = userdata[index].date;
+            link.textContent = audioData[index].date;
             link.setAttribute('href', "http://" + value);
 
             var cell1 = row.insertCell(0);
@@ -76,21 +77,31 @@ function populateTable(userdata, isPopulated){
             var cell6 = row.insertCell(5);
 
             var audioPlayer = document.createElement('audio');
-            audioPlayer.src = '/audiofiles/file1.wav';
+            //audioPlayer.src = '/audiofiles/file1.wav';
+            audioPlayer.src = "/audiofiles/temp.wav";
             audioPlayer.type = 'audio/wav';
             audioPlayer.controls = 'controls';
-            audioPlayer.preload = 'none';
+            audioPlayer.preload = 'auto';
 
             cell1.appendChild(link);
-            cell2.innerHTML = userdata[index].doctor;
-            cell3.innerHTML = userdata[index].place;
-            cell4.innerHTML = userdata[index].Duration + ' min.';
+            cell2.innerHTML = audioData[index].doctor;
+            cell3.innerHTML = audioData[index].place;
+            cell4.innerHTML = audioData[index].Duration + ' min.';
             cell5.appendChild(audioPlayer);
-            cell6.innerHTML = '<button id="DEL'+index+'" onclick="deleteFile(\'' + userdata[index]._id + '\')"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
+            cell6.innerHTML = '<button id="DEL'+index+'" onclick="deleteFile(\'' + audioData[index]._id + '\')"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
         });
     }else{
         console.log("populate table json get failed (getFiles)");
     }
+}
+
+function getAudioFilePath(path) {
+    var filepath = '/getaudio';
+    $.ajax({url:filepath, success: function (data) {
+        console.log(data);
+        filepath  = data;
+    }});
+    return filepath;
 }
 
 function deleteFile(objectID){

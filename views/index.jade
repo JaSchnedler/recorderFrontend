@@ -12,7 +12,7 @@ block content
                     input.span3(class='form-control', id="searchInput", type="text", name="User", placeholder="Search for a consultation")
                     button.btn(id = "submitBtn" , onclick="javascript:search()", value="Search", class='btn-primary')
                         i(class="fa fa-search" aria-hidden="true")
-                    form(id='loginForm', action='/', method='get')
+                    form(id='loginForm', action='/addfile', method='POST')
                         button.btn(id = "logoutBtn" , type="submit", value="Search", class='btn-danger')
                             i(class="fa fa-sign-out" aria-hidden="true")
             div.container(id='tableContainer')

@@ -4,10 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var helmet = require('helmet');
 var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('localhost:27017/recorderdatabase');
+var expressMongoDb = require('express-mongo-db');
+var Grid = require('gridfs');
+const databasepath = 'mongodb://localhost:27017/recorderdatabase';
 
 var index = require('./routes/routes');
 //var users = require('./routes/users');
@@ -17,19 +18,18 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-app.use(favicon(__dirname + '/images/favicon.ico'));
+app.use(favicon(__dirname + '/images/favicon/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/')));
+app.use(expressMongoDb(databasepath));
 
-
+app.use(helmet());
 
 app.use(function(req,res,next){
-  req.db = db;
-  next();
+    next();
 });
 
 app.use('/', index);
