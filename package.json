@@ -11,6 +11,7 @@
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "express-mongo-db": "^2.0.3",
+    "formidable": "^1.1.1",
     "gridfs": "^1.0.0",
     "gridfs-stream": "^1.1.1",
     "helmet": "^3.9.0",

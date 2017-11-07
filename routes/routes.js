@@ -29,18 +29,6 @@ router.get('/single:id',  function (req, res) {
     listmodel.getOwnedSoundFiles(req.params.id, req, res);
 });
 
-
-router.post('/adduser', function (req, res) {
-    var db = req.db;
-    var collection = db.collection('usercollection');
-    collection.insert(req.body, function (err) {
-        res.send(
-            (err === null)? {msg:''} : {msg:err}
-        );
-    });
-    return true;
-});
-
 router.delete('/deletefile:id', function (req, res) {
 
     listmodel.deleteFileByObjectID(req.params.id, req, res);
@@ -67,32 +55,21 @@ router.post('/modifyuser:id', function(req){
 
 });
 
-router.post('/user',function (req, res) {
-    receivefromrecorderModel.addUser(req);
+router.post('/addUser',function (req, res) {
+    receivefromrecorderModel.addUser(req, res);
 });
 
 router.post('/addfile', function (req, res) {
-    receivefromrecorderModel.getFile(req, res);
-    res.status(200).redirect('/');
+    receivefromrecorderModel.addFile(req, res);
 });
 
-router.get('/getaudio',function (req, res) {
-        var db = req.db;
-        var collection = db.collection('fs.files');
-        collection.findOne({filename: 'file1.wav'}, function (err, result) {
-            console.log('found it');
-            if(err) {
-                console.log(err.message);
-            }else{
-                var bucket = new mongo.GridFSBucket(db); //default bucket = fs
-                bucket.openDownloadStreamByName('file1.wav').pipe(fs.createWriteStream('./audiofiles/temp.wav')).on('error', function (error) {
-                    console.log('error');
-                }).on('finish', function () {
-                    console.log('success!');
-                })
-            }
+router.get('/getaudio/:id',function (req, res) {
+    var id = req.params.id.substr(1);
+    listmodel.retrieveFile(id, req, res);
+});
 
-        });
+router.get('/getaudiofilemetadata:id', function (req, res) {
+    listmodel.getFileInfo(req.params.id,req, res);
 });
 
 
