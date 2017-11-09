@@ -73,7 +73,11 @@ function populateTable(audioData, isPopulated){
             audioPlayer.src = "http://localhost:3001/getaudio/:" + audioData[index];
             audioPlayer.type = 'audio/wav';
             audioPlayer.controls = 'controls';
-            audioPlayer.preload = 'auto';
+            if(index < 2){
+                audioPlayer.preload = 'auto';
+            }else{
+                audioPlayer.preload = 'none';
+            }
 
             $.getJSON('/getaudiofilemetadata' + audioData[index], function(data){
                 }).done(function (metadata) {
@@ -84,13 +88,13 @@ function populateTable(audioData, isPopulated){
                         cell2.innerHTML = metadata.metadata.doctor;
                         cell3.innerHTML = metadata.metadata.location;
                         cell4.innerHTML = metadata.metadata.duration + ' min.';
+                        cell6.innerHTML = '<button id="DEL'+index+'" onclick="deleteFile(\'' + audioData[index] + '\')"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
                         return metadata;
                 }
             });
 
 
             cell5.appendChild(audioPlayer);
-            cell6.innerHTML = '<button id="DEL'+index+'" onclick="deleteFile(\'' + audioData[index]._id + '\')"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
         });
     }else{
         console.log("populate table json get failed (getFiles)");
@@ -100,20 +104,23 @@ function populateTable(audioData, isPopulated){
 function deleteFile(objectID){
     event.preventDefault();
     console.log('deleting: ' + objectID);
-    var confirmation = confirm("u sure?");
+
+    var confirmation = confirm("Are you sure?");
+
     if(confirmation === true){
         $.ajax({
-                type: 'DELETE',
-                url: '/deletefile' + objectID
-            }).done(function (response) {
-                if(response === ''){
-                    console.log('table populated');
+                type: 'POST',
+                url: '/deletefile/' + objectID + '/' + parsedSSN
+            }).done(function (err) {
+                if(err){
+                    console.log(err.message);
                 }else{
                     //alert("did not complete the delete" + response.err);
+                    console.log('file deleted');
                 }
         });
-    }else{
-        alert("file not deleted");
     }
-    getfiles(parsedSSN); //may or may not work, need data for testing
+
+    //getfiles(parsedSSN); //may or may not work, need data for testing
+
 }

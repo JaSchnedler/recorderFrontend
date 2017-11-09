@@ -40,19 +40,35 @@ exports.getOwnedSoundFiles = function (owner, req, res) {
       });
 };
 
-exports.deleteFileByObjectID = function (objID, req) {
+exports.deleteFileByObjectID = function (objID, req, res) {
+    console.log('delete file by object ID function');
+
     var db = req.db;
-    var collection = db.get('filecollection');
-    var query = {_id : objID};
+    var collection = db.get('fs.files');
+    var o_id = new ObjectId(objID);
+    var query = {_id : o_id};
+    /*
     collection.findByIdAndRemove(query, function (err) {
         if(err){
-            console.log(err);
+            console.log(err.message);
         }else{
             console.log('File deleted');
         }
+    });
+    */
+};
+function removeFromUser(objId, ssn, req) {
+    var db = req.db;
+    var collection = db.collection('usercollection');
+    var o_id = new ObjectId(objId);
+    var query = {ssn: ssn};
+    console.log('trying to remove from user list now');
+
+    collection.findOneAndUpdate(query, {$pull: { soundfiles: o_id}}, function (err, data) {
+        if(err) console.log(err.message);
+        console.log(data);
 
     });
-
 };
 
 /*Audio request handler*/
@@ -72,11 +88,11 @@ exports.retrieveFile = function (id, req, res) {
         }else{
             var bucket = new mongo.GridFSBucket(db); //default bucket = fs
             res.setHeader('Content-type', 'audio/wav');
-
+            res.setHeader('Accept-Ranges', 'bytes');
             bucket.openDownloadStream(o_id).pipe(res).on('error', function (error) {
             console.log('error');
              }).on('finish', function () {
-                console.log('success!');
+                console.log('success retrieving file!');
     });
         }
 

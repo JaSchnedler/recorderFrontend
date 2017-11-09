@@ -5,6 +5,7 @@ var listmodel = require('../models/listmodel');
 var loginmodel = require('../models/loginmodel');
 var receivefromrecorderModel = require('../models/receivefromrecordermodel');
 var fs = require("fs");
+var ObjectId = require('mongodb').ObjectId;
 
 router.post('/app', function(req, res) {
     loginmodel.verifyUser(req.body.username, req.body.password, req, function (response, name, err) {
@@ -27,12 +28,6 @@ router.get('/single:id',  function (req, res) {
     console.log('singleID');
     //listmodel.getUserInfo(req, res);
     listmodel.getOwnedSoundFiles(req.params.id, req, res);
-});
-
-router.delete('/deletefile:id', function (req, res) {
-
-    listmodel.deleteFileByObjectID(req.params.id, req, res);
-
 });
 
 router.post('/modifyuser:id', function(req){
@@ -72,5 +67,28 @@ router.get('/getaudiofilemetadata:id', function (req, res) {
     listmodel.getFileInfo(req.params.id,req, res);
 });
 
+router.post('/deletefile/:id/:ssn', function (req, res) {
+    console.log('delete route matched');
+    var db = req.db;
+    var collection = db.collection('usercollection');
+    var query2 = {ssn: req.params.ssn};
+    console.log('trying to remove from user list now');
+    collection.findOneAndUpdate(query2, {$pull: { soundfiles: o_id}}, function (err, data) {
+        if(err) console.log(err.message);
+
+        console.log('entry removed from list');
+
+        var o_id = new ObjectId(req.params.id);
+        var query = {_id : o_id};
+        collection = db.collection('fs.files');
+        collection.remove(query, function (err) {
+            if (err) console.log(err.message);
+            console.log('file deleted.');
+
+            res.sendStatus(200);
+        });
+
+    });
+});
 
 module.exports = router;

@@ -82,7 +82,7 @@ exports.addFile = function (req, res) {
             }));
         }
     });
-}
+};
 
 function addFileToUser(db, id, owner){
     var DB = db;
