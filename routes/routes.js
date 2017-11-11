@@ -61,6 +61,8 @@ router.post('/addfile', function (req, res) {
 router.get('/getaudio/:id',function (req, res) {
     var id = req.params.id.substr(1);
     listmodel.retrieveFile(id, req, res);
+    //console.log(res);
+
 });
 
 router.get('/getaudiofilemetadata:id', function (req, res) {
@@ -69,26 +71,12 @@ router.get('/getaudiofilemetadata:id', function (req, res) {
 
 router.post('/deletefile/:id/:ssn', function (req, res) {
     console.log('delete route matched');
-    var db = req.db;
-    var collection = db.collection('usercollection');
-    var query2 = {ssn: req.params.ssn};
-    console.log('trying to remove from user list now');
-    collection.findOneAndUpdate(query2, {$pull: { soundfiles: o_id}}, function (err, data) {
-        if(err) console.log(err.message);
+    listmodel.deleteFileByObjectID(req.params.id, req.params.ssn, req, res);
+});
 
-        console.log('entry removed from list');
-
-        var o_id = new ObjectId(req.params.id);
-        var query = {_id : o_id};
-        collection = db.collection('fs.files');
-        collection.remove(query, function (err) {
-            if (err) console.log(err.message);
-            console.log('file deleted.');
-
-            res.sendStatus(200);
-        });
-
-    });
+router.get('/search/:val/:ssn', function (req, res) {
+    console.log('search route matched');
+    listmodel.search(req, res);
 });
 
 module.exports = router;

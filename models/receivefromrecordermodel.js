@@ -5,6 +5,7 @@ var assert = require("assert");
 var path = require('path');
 var formidable = require('formidable');
 var ObjectId = require('mongodb').ObjectId;
+var converter = require('audio-converter');
 
 
 exports.addUser = function (req, res) {
@@ -64,25 +65,38 @@ exports.addFile = function (req, res) {
     form.on('end', function () {
         var db = req.db;
         var fileToSend = fileData.filedata.path;
+        var newpath = path.join(__dirname, '../', './audiofiles/temp/converted.mp3');
 
-        if (fs.existsSync(fileToSend)) {
-            console.log('file exists - uploading to db');
-            var bucket = new mongo.GridFSBucket(db);
-            //retrieve relevant information from the upload sent from the pi and add it to the below metaData
-            fs.createReadStream(fileToSend).pipe(bucket.openUploadStream(fileData.filedata.name, metaData).on('error', function (error) {
-                assert.ifError(error);
-            }).on('finish', function (resp) {
-                console.log('uploaded file');
-                addFileToUser(db, resp._id, resp.metadata.ssn);
-                res.sendStatus(200);
+        convert(fileToSend, newpath).then(function () {
+            if (fs.existsSync(fileToSend)) {
+                console.log('file exists - uploading to db');
+                var bucket = new mongo.GridFSBucket(db);
+                //retrieve relevant information from the upload sent from the pi and add it to the below metaData
+                fs.createReadStream(fileToSend).pipe(bucket.openUploadStream(fileData.filedata.name, metaData).on('error', function (error) {
+                    assert.ifError(error);
+                }).on('finish', function (resp) {
+                    console.log('uploaded file');
+                    addFileToUser(db, resp._id, resp.metadata.ssn);
+                    res.sendStatus(200);
 
-                fs.unlink(fileToSend, function (err) {
-                    if (err) console.log(err.message);
-                });
-            }));
-        }
+                    fs.unlink(fileToSend, function (err) {
+                        if (err) console.log(err.message);
+                    });
+                }));
+            }
+        });
+
+
     });
 };
+function convert(file, newpath){
+    return new Promise(function (fulfill, reject) {
+        converter(file, newpath, function (err, res) {
+            if(err) reject(err);
+            else fulfill(res);
+        })
+    })
+}
 
 function addFileToUser(db, id, owner){
     var DB = db;
