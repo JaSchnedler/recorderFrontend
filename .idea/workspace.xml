@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f12cbd58-0f11-4cdf-bd54-3e25b8e5fed8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/expressnodeserver.iml" afterPath="$PROJECT_DIR$/.idea/expressnodeserver.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/javascripts/clienthomeview.js" afterPath="$PROJECT_DIR$/javascripts/clienthomeview.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/listmodel.js" afterPath="$PROJECT_DIR$/models/listmodel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/receivefromrecordermodel.js" afterPath="$PROJECT_DIR$/models/receivefromrecordermodel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/routes.js" afterPath="$PROJECT_DIR$/routes/routes.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -37,8 +30,8 @@
       <file leaf-file-name="clienthomeview.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/javascripts/clienthomeview.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="535">
-              <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+            <state relative-caret-position="135">
+              <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -155,7 +148,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="873" />
@@ -292,12 +285,12 @@
       <workItem from="1506939717295" duration="30393000" />
       <workItem from="1507043484884" duration="49931000" />
       <workItem from="1509208755942" duration="93310000" />
-      <workItem from="1510215263292" duration="12751000" />
+      <workItem from="1510215263292" duration="13253000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="201185000" />
+    <option name="totallyTimeSpent" value="201687000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -309,7 +302,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="873" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="873" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16067654" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -712,8 +705,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/javascripts/clienthomeview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+        <state relative-caret-position="135">
+          <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
           <folding />
         </state>
       </provider>

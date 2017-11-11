@@ -5,11 +5,13 @@ $(document).ready(function(){
     }else{console.log('error...');}
     //console.log(singleContent);
 
-    $("#searchInput").change(function (status, eventType) {
-        if($('#searchInput').val() === undefined){
-            getfiles(parsedSSN);
+
+    $('input[type=text]').on('keydown', function(e) {
+        if (e.which === 13) {
+            e.preventDefault();
+            search();
         }
-    })
+    });
 });
 
 function downloadFile(url){
@@ -26,7 +28,6 @@ function search(){
             populateTable(result);
         });
     }
-
 }
 
 function getfiles(ssnParsed){
