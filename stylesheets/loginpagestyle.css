@@ -6,6 +6,10 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    width: -moz-fit-content;
+    width: -webkit-fit-content;
+    margin-right: auto;
+    margin-left: auto;
 }
 body{
 
@@ -42,7 +46,6 @@ a {
 }
 
 #wrapper {
-    padding-left:600px;
     position:relative;
     background-color: #adbfb6;
 }
@@ -57,7 +60,7 @@ a {
 
 /* For login screen*/
 #loginForm{
-    width: fit-content;
+    min-width: fit-content;
     margin: auto;
     padding: 45px;
     border-style: solid;
@@ -72,6 +75,7 @@ a {
     margin-top: 10px;
     margin-bottom: 5px;
     width:-webkit-fill-available;
+    width: -moz-available;
     cursor: pointer;
 }
 
@@ -105,4 +109,24 @@ a {
     background: #006DCC;
     color: white;
 
+}
+
+@media screen and (max-width: 600px) {
+
+    #bodyLogin{
+        width: 100%;
+        width: -moz-available;
+
+    }
+    .form-control{
+        margin-top: 7px;
+        background: rgba(211, 211, 211, 0.25);
+        font: 6vw "Lucida Grande", Helvetica, Arial, sans-serif;
+    }
+    #loginh2 {
+        font: 12vw "Lucida Grande", Helvetica, Arial, sans-serif;
+    }
+    .btn-primary {
+        line-height: 3vw;
+    }
 }

@@ -1,11 +1,8 @@
 var express = require('express');
-var mongo = require('mongodb');
 var router = express.Router();
 var listmodel = require('../models/listmodel');
 var loginmodel = require('../models/loginmodel');
 var receivefromrecorderModel = require('../models/receivefromrecordermodel');
-var fs = require("fs");
-var ObjectId = require('mongodb').ObjectId;
 
 router.post('/app', function(req, res) {
     loginmodel.verifyUser(req.body.username, req.body.password, req, function (response, name, err) {
@@ -19,35 +16,15 @@ router.post('/app', function(req, res) {
 
 router.get('/', function (req, res) {
     console.log("get login");
-    //console.log(req.db);
     res.render('login', { title: 'Welcome to weRecord'});
 });
 
 
 router.get('/single:id',  function (req, res) {
     console.log('singleID');
-    //listmodel.getUserInfo(req, res);
-    listmodel.getOwnedSoundFiles(req.params.id, req, res);
-});
-
-router.post('/modifyuser:id', function(req){
-    var db = req.db;
-    var collection = db.get('usercollection');
-    var userToModify = {
-        'id': req.params.id,
-        'email':req.params.email,
-        'ssn':req.params.name,
-        'soundfiles':req.params.soundfiles
-    };
-
-    collection.update({_id:userToModify.id}, userToModify,   function(err, object) {
-        if (err){
-            console.warn(err.message);  // returns error if no matching object found
-        }else{
-            console.dir(object);
-        }
-    });
-
+    if(req.params.id !== undefined) {
+        listmodel.getOwnedSoundFiles(req.params.id, req, res);
+    }
 });
 
 router.post('/addUser',function (req, res) {
@@ -60,8 +37,9 @@ router.post('/addfile', function (req, res) {
 
 router.get('/getaudio/:id',function (req, res) {
     var id = req.params.id.substr(1);
-    listmodel.retrieveFile(id, req, res);
-    //console.log(res);
+    if(id !== undefined) {
+        listmodel.retrieveFile(id, req, res);
+    }
 
 });
 
@@ -71,7 +49,9 @@ router.get('/getaudiofilemetadata:id', function (req, res) {
 
 router.post('/deletefile/:id/:ssn', function (req, res) {
     console.log('delete route matched');
-    listmodel.deleteFileByObjectID(req.params.id, req.params.ssn, req, res);
+    if(req.params.id !== undefined) {
+        listmodel.deleteFileByObjectID(req.params.id, req.params.ssn, req, res);
+    }
 });
 
 router.get('/search/:val/:ssn', function (req, res) {

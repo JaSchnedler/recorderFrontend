@@ -4,10 +4,15 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    width: webkit-fill-available;
+    width: -moz-available;
 }
 
 table {
     border-collapse: separate;
+    display: block;
+    width: inherit;
+    word-break: normal;
     border-spacing: 0 5px;
 }
 h3{
@@ -47,6 +52,7 @@ tr th:last-child {
 
 .form-control{
     margin-left: 2px;
+    width: auto;
 }
 
 .table-hover > tbody > tr:hover {
@@ -62,22 +68,34 @@ button#btnID{
  }
 
 #searchConsultationContainer{
-    width: fit-content;
     margin-bottom: 5px;
     margin-left: auto;
     margin-right: auto;
+    width: fit-content;
+    width: -moz-fit-content;
+}
+#searchInput{
+    min-width: 28%;
 }
 .container{
     width: fit-content;
+    width: -moz-max-content;
+    padding-left: 0%;
+    padding-right: 0%;
 }
 
 .content{
-    width: 100%;
+    width: inherit;
+    display: table;
+
 }
 #outerApp{
     background: white;
-    width: fit-content;
-    min-width: 700px;
+    width: -webkit-fill-available;
+    width: -moz-available;
+    max-width: fit-content;
+    max-width: -moz-fit-content;
+    max-width: fit-content;
     margin-top: 1%;
     margin-bottom: 3%;
     margin-right: auto;
@@ -98,7 +116,9 @@ div.welcomeHeader{
 #innerApp{
     padding: 10px 20px;
     /* margin: 26px; */
-    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: scroll;
 
 }
 .btn-primary{
@@ -114,7 +134,18 @@ div.welcomeHeader{
 }
 
 audio{
-    max-width: 300px;
-    min-width: 200px;
     background-color: #9E9E9E;
+}
+
+@media screen and (max-width: 600px) {
+
+    .container{
+        max-width: 100%;
+    }
+
+    #loginh2 {
+        font: 12vw "Lucida Grande", Helvetica, Arial, sans-serif;
+    }
+    .btn-primary {
+    }
 }

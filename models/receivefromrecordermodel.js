@@ -1,4 +1,3 @@
-
 var mongo = require('mongodb');
 var fs = require("fs");
 var assert = require("assert");
@@ -9,35 +8,37 @@ var converter = require('audio-converter');
 
 
 exports.addUser = function (req, res) {
-    var userData = {userdata:{}};
+    var userData = {userdata: {}};
     var form = new formidable.IncomingForm();
     form.parse(req, function (err) {
-        if(err) console.log(err.message);
+        if (err) console.log(err.message);
     });
 
 
     form.on('field', function (name, value) {
-       userData.userdata[name] = value;
+        userData.userdata[name] = value;
     });
 
     form.on('end', function () {
         var db = req.db;
         var collection = db.collection('usercollection');
-        var query = {ssn: userData.userdata.ssn};
+        if (collection !== undefined && db !== undefined) {
 
-        collection.update(query, {$set: userData},{upsert: true}, function (err, matchedCount) {
-            if(err){
+            var query = {ssn: userData.userdata.ssn};
+
+            collection.update(query, {$set: userData}, {upsert: true}, function (err, matchedCount) {
+                if (err) {
                     console.log(err.message);
-            }else{
-                if(matchedCount > 0){
-                    res.send('user exists');
+                } else {
+                    if (matchedCount > 0) {
+                        res.send('user exists');
+                    }
+                    else {
+                        res.send('user added');
+                    }
                 }
-                else{
-                    res.send('user added');
-                }
-            }
-        });
-
+            });
+        }
     });
 
 
@@ -89,28 +90,29 @@ exports.addFile = function (req, res) {
 
     });
 };
-function convert(file, newpath){
+
+function convert(file, newpath) {
     return new Promise(function (fulfill, reject) {
         converter(file, newpath, function (err, res) {
-            if(err) reject(err);
+            if (err) reject(err);
             else fulfill(res);
         })
     })
 }
 
-function addFileToUser(db, id, owner){
+function addFileToUser(db, id, owner) {
     var DB = db;
     var o_id = new ObjectId(id);
     var collection = DB.collection('usercollection');
-    var query = {ssn : owner};
+    var query = {ssn: owner};
+    if (collection !== undefined && db !== undefined) {
 
-    collection.findOneAndUpdate(query, {$push:{soundfiles: o_id}}, {upsert: false},function (err, data) {
-        if (err) {
-            console.log(err);
-            console.log('not added anywhere');
-        }
-        console.log('added file to user');
-    });
-
-
+        collection.findOneAndUpdate(query, {$push: {soundfiles: o_id}}, {upsert: false}, function (err, data) {
+            if (err) {
+                console.log(err);
+                console.log('not added anywhere');
+            }
+            console.log('added file to user');
+        });
     }
+}

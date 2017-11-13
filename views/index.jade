@@ -6,18 +6,18 @@ block content
             h3 #{title}
             div(id="ssnDiv")
                 p Click the icon on the right to download your consultation
-        div(id='innerApp')
-            div(id='searchConsultationContainer')
-                div.form-inline(id="searchForm")
-                    input.span3(class='form-control', id="searchInput", type="text", name="User", placeholder="Search for a consultation")
-                    button.btn(id = "submitBtn" , onclick="javascript:search()", value="Search", class='btn-primary')
-                        i(class="fa fa-search" aria-hidden="true")
+        div(id='searchConsultationContainer')
+            div.form-inline(id="searchForm")
+                input.span3(class='form-control', id="searchInput", type="text", name="User", placeholder="Search here")
+                button.btn(id = "submitBtn" , onclick="javascript:search()", value="Search", class='btn-primary')
+                    i(class="fa fa-search" aria-hidden="true")
                     form(id='loginForm', action='/addfile', method='POST')
                         button.btn(id = "logoutBtn" , type="submit", value="Search", class='btn-danger')
                             i(class="fa fa-sign-out" aria-hidden="true")
-            div.container(id='tableContainer')
+        div(id='innerApp')
+            div.container(id='tableContainer', style="overflow-x:auto;")
                 div.content
-                        table.table.table-hover(id="userInfoTable")
+                    table.table.table-hover(id="userInfoTable")
                             thead(id='tableHead', class='active')
                                 tr
                                     th Date
@@ -28,4 +28,3 @@ block content
                                     th Delete
                             tbody(id='tableBody')
                                 tr
-    // Wrapper
